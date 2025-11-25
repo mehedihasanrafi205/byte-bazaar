@@ -1,0 +1,15 @@
+import React from "react";
+import ProductDetail from "@/components/ProductDetail";
+
+export default async function ProductDetailPage({ params }) {
+  const { id } = await params;
+  // console.log("Product ID:", id);
+  const res = await fetch(`http://localhost:4000/products/${id}`);
+  const product = await res.json();
+  console.log(product);
+  return (
+    <div className="container mx-auto  px-6 xl:px-0 mt-30">
+      <ProductDetail product={product} />
+    </div>
+  );
+}
