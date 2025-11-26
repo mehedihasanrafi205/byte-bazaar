@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function AddProductPage() {
   const { data: session } = useSession(); // Get session
@@ -114,150 +115,156 @@ export default function AddProductPage() {
   };
 
   return (
-    <section className="px-6 xl:px-0">
-      <div className="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-xl mt-30 mb-15">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
-          Add New Product
-        </h2>
+    <ProtectedRoute>
+      <section className="px-6 xl:px-0">
+        <div className="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-xl mt-30 mb-15">
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+            Add New Product
+          </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Basic Info */}
-          <div className="space-y-4">
-            <input
-              type="text"
-              name="title"
-              placeholder="Product Title"
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              onChange={handleChange}
-              required
-            />
-            <textarea
-              name="shortDesc"
-              placeholder="Short Description"
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              onChange={handleChange}
-              required
-            />
-            <textarea
-              name="fullDesc"
-              placeholder="Full Description"
-              className="w-full border border-gray-300 p-3 rounded-lg h-32 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              onChange={handleChange}
-              required
-            />
-            <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Basic Info */}
+            <div className="space-y-4">
               <input
-                type="number"
-                name="price"
-                placeholder="Price"
-                className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="number"
-                name="rating"
-                step="0.1"
-                placeholder="Rating (e.g. 4.7)"
-                className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <select
-              name="category"
-              className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Category</option>
-              <option value="Adapter">Adapter</option>
-              <option value="Headset">Headset</option>
-              <option value="PowerBank">PowerBank</option>
-              <option value="Smartwatch">Smartwatch</option>
-              <option value="Lifestyle">Lifestyle</option>
-              <option value="PhoneAccessories">Phone Accessories</option>
-            </select>
-          </div>
-
-          {/* Images */}
-          <div className="space-y-2">
-            <label className="font-medium text-gray-700">Product Images</label>
-            {formData.images.map((img, i) => (
-              <input
-                key={i}
                 type="text"
-                placeholder={`Image URL ${i + 1}`}
-                className="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                value={img}
-                onChange={(e) => handleImageChange(i, e.target.value)}
+                name="title"
+                placeholder="Product Title"
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                onChange={handleChange}
                 required
               />
-            ))}
+              <textarea
+                name="shortDesc"
+                placeholder="Short Description"
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                onChange={handleChange}
+                required
+              />
+              <textarea
+                name="fullDesc"
+                placeholder="Full Description"
+                className="w-full border border-gray-300 p-3 rounded-lg h-32 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                onChange={handleChange}
+                required
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="number"
+                  name="price"
+                  placeholder="Price"
+                  className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  type="number"
+                  name="rating"
+                  step="0.1"
+                  placeholder="Rating (e.g. 4.7)"
+                  className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <select
+                name="category"
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Category</option>
+                <option value="Adapter">Adapter</option>
+                <option value="Headset">Headset</option>
+                <option value="PowerBank">PowerBank</option>
+                <option value="Smartwatch">Smartwatch</option>
+                <option value="Lifestyle">Lifestyle</option>
+                <option value="PhoneAccessories">Phone Accessories</option>
+              </select>
+            </div>
+
+            {/* Images */}
+            <div className="space-y-2">
+              <label className="font-medium text-gray-700">
+                Product Images
+              </label>
+              {formData.images.map((img, i) => (
+                <input
+                  key={i}
+                  type="text"
+                  placeholder={`Image URL ${i + 1}`}
+                  className="w-full border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  value={img}
+                  onChange={(e) => handleImageChange(i, e.target.value)}
+                  required
+                />
+              ))}
+              <button
+                type="button"
+                onClick={addImageField}
+                className="mt-2 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+              >
+                + Add More Images
+              </button>
+            </div>
+
+            {/* Specifications */}
+            <div className="space-y-2">
+              <label className="font-medium text-gray-700">
+                Specifications
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  name="BatteryLife"
+                  placeholder="Battery Life"
+                  className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  onChange={handleSpecChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="Connectivity"
+                  placeholder="Connectivity"
+                  className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  onChange={handleSpecChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="Weight"
+                  placeholder="Weight"
+                  className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  onChange={handleSpecChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="Color"
+                  placeholder="Color"
+                  className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  onChange={handleSpecChange}
+                  required
+                />
+                <input
+                  type="text"
+                  name="Warranty"
+                  placeholder="Warranty"
+                  className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                  onChange={handleSpecChange}
+                  required
+                />
+              </div>
+            </div>
+
             <button
-              type="button"
-              onClick={addImageField}
-              className="mt-2 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+              type="submit"
+              className="w-full py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all"
             >
-              + Add More Images
+              Submit Product
             </button>
-          </div>
-
-          {/* Specifications */}
-          <div className="space-y-2">
-            <label className="font-medium text-gray-700">Specifications</label>
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="BatteryLife"
-                placeholder="Battery Life"
-                className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                onChange={handleSpecChange}
-                required
-              />
-              <input
-                type="text"
-                name="Connectivity"
-                placeholder="Connectivity"
-                className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                onChange={handleSpecChange}
-                required
-              />
-              <input
-                type="text"
-                name="Weight"
-                placeholder="Weight"
-                className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                onChange={handleSpecChange}
-                required
-              />
-              <input
-                type="text"
-                name="Color"
-                placeholder="Color"
-                className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                onChange={handleSpecChange}
-                required
-              />
-              <input
-                type="text"
-                name="Warranty"
-                placeholder="Warranty"
-                className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                onChange={handleSpecChange}
-                required
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-3 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all"
-          >
-            Submit Product
-          </button>
-        </form>
-      </div>
-    </section>
+          </form>
+        </div>
+      </section>
+    </ProtectedRoute>
   );
 }

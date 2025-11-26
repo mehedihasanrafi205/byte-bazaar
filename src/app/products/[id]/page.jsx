@@ -1,5 +1,6 @@
 import React from "react";
 import ProductDetail from "@/components/ProductDetail";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default async function ProductDetailPage({ params }) {
   const { id } = await params;
@@ -10,8 +11,10 @@ export default async function ProductDetailPage({ params }) {
   const product = await res.json();
   console.log(product);
   return (
-    <div className="container mx-auto  px-6 xl:px-0 mt-30">
-      <ProductDetail product={product} />
-    </div>
+    <ProtectedRoute>
+      <div className="container mx-auto  px-6 xl:px-0 mt-30">
+        <ProductDetail product={product} />
+      </div>
+    </ProtectedRoute>
   );
 }
