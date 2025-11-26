@@ -1,30 +1,81 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
+import { signIn, useSession } from "next-auth/react";
 
 export default function RegisterPage() {
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const handleRegister = (e) => {
+
+  useEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [session, router]);
+
+  const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // Fake API
-    setTimeout(() => {
-      setLoading(false);
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (res?.error) {
       Swal.fire({
-        title: "Success!",
-        text: "Account created successfully.",
-        icon: "success",
+        title: "Error!",
+        text: res.error,
+        icon: "error",
         confirmButtonText: "OK",
       });
-      router.push("/");
-    }, 1200);
+    } else {
+      Swal.fire({
+        title: "Success!",
+        text: "Logged in successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        router.push("/");
+      });
+    }
   };
+
+  const handleGoogle = () => {
+    setLoading(true);
+    signIn("google", { callbackUrl: "/" });
+  };
+
+  // Loading overlay
+  if (loading || status === "loading") {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-base-200 bg-opacity-70 z-50">
+        <div className="flex flex-col items-center">
+          <div className="w-24 h-24 mb-4 animate-spin">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              className="rounded-full"
+              width={96}
+              height={96}
+            />
+          </div>
+          <p className="text-lg font-semibold text-gray-700">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
@@ -72,7 +123,10 @@ export default function RegisterPage() {
 
           <div class="divider">OR</div>
 
-          <button className="btn bg-white text-black border-[#e5e5e5] w-full">
+          <button
+            onClick={handleGoogle}
+            className="btn bg-white text-black border-[#e5e5e5] w-full"
+          >
             <svg
               aria-label="Google logo"
               width="16"

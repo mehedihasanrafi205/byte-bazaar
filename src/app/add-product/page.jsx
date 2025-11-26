@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { useSession } from "next-auth/react";
 
 export default function AddProductPage() {
+  const { data: session } = useSession(); // Get session
   const [formData, setFormData] = useState({
     title: "",
     shortDesc: "",
@@ -47,16 +49,29 @@ export default function AddProductPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!session?.user?.email) {
+      Swal.fire({
+        icon: "error",
+        title: "Login required",
+        text: "Please login to add a product.",
+      });
+      return;
+    }
+
+    const productData = { ...formData, email: session.user.email }; // Add user email
+
     try {
       const res = await fetch(
         "https://byte-bazaar-server-drab.vercel.app/products",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(productData),
         }
       );
       const data = await res.json();
+
       if (res.ok) {
         Swal.fire({
           position: "center",
@@ -65,6 +80,7 @@ export default function AddProductPage() {
           showConfirmButton: false,
           timer: 1500,
         });
+
         setFormData({
           title: "",
           shortDesc: "",
@@ -99,7 +115,7 @@ export default function AddProductPage() {
 
   return (
     <section className="px-6 xl:px-0">
-      <div className="max-w-4xl mx-auto p-8  bg-white shadow-xl rounded-xl mt-30 mb-15">
+      <div className="max-w-4xl mx-auto p-8 bg-white shadow-xl rounded-xl mt-30 mb-15">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Add New Product
         </h2>

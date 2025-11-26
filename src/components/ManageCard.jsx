@@ -2,75 +2,60 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
-import { FiEdit, FiTrash2, FiEye } from "react-icons/fi";
+import { FiTrash2 } from "react-icons/fi";
 
-const ManageCard = ({ product, handleDelete }) => {
+export default function ManageCard({ product, handleDelete }) {
   const router = useRouter();
 
-  const handleViewDetails = (_id) => {
+  const {
+    _id,
+    title = "No Title",
+    price = 0,
+    category = "Uncategorized",
+    images = [],
+  } = product || {};
+
+  const imageUrl =
+    images.length > 0 && images[0]?.startsWith("http")
+      ? images[0]
+      : "/logo.png"; // fallback
+
+  const handleViewDetails = () => {
     router.push(`/products/${_id}`);
   };
 
   return (
-    <div className="card bg-base-100 border rounded-xl shadow-sm hover:shadow-lg transition-all">
-      <figure className="relative h-40 w-full overflow-hidden rounded-top-xl">
+    <div className="border rounded-xl p-4 flex flex-col shadow-md bg-white hover:shadow-lg transition-shadow">
+      <div className="w-full h-48 relative mb-4">
         <Image
-          src={product.images?.[0] || "/placeholder.jpg"}
-          alt={product.title}
+          src={imageUrl}
+          alt={title}
           fill
-          className="object-cover"
+          style={{ objectFit: "cover" }}
+          unoptimized
         />
-      </figure>
+      </div>
 
-      <div className="p-4 space-y-2">
-        <h2 className="font-bold text-lg">{product.title}</h2>
-        <p className="text-sm text-neutral/60">{product.category}</p>
+      <h2 className="font-bold text-lg truncate">{title}</h2>
+      <p className="text-gray-500 mt-1">
+        ৳{price} | {category}
+      </p>
 
-        <div className="flex items-center justify-between mt-3">
-          <span className="font-bold text-primary text-xl">
-            ৳ {product.price}
-          </span>
-          <span
-            className={`text-sm ${
-              product.stock > 10
-                ? "text-green-600"
-                : product.stock > 0
-                ? "text-orange-600"
-                : "text-red-600"
-            }`}
-          >
-            {product.stock > 10
-              ? "In Stock"
-              : product.stock > 0
-              ? "Low Stock"
-              : "Out of Stock"}
-          </span>
-        </div>
+      <div className="mt-4 flex justify-between">
+        <button
+          onClick={handleViewDetails}
+          className="btn btn-sm btn-primary flex-1 mr-2"
+        >
+          View Details
+        </button>
 
-        {/* Action Buttons */}
-        <div className="flex items-center justify-between pt-3 border-t">
-          <button
-            onClick={() => handleViewDetails(product._id)}
-            className="btn btn-sm btn-outline gap-2"
-          >
-            <FiEye /> Details
-          </button>
-
-          <button className="btn btn-sm btn-ghost gap-2">
-            <FiEdit /> Edit
-          </button>
-
-          <button
-            onClick={() => handleDelete(product._id)}
-            className="btn btn-sm btn-error text-error-content gap-2"
-          >
-            <FiTrash2 /> Delete
-          </button>
-        </div>
+        <button
+          onClick={() => handleDelete(_id)}
+          className="btn btn-sm btn-error flex-1"
+        >
+          <FiTrash2 /> Delete
+        </button>
       </div>
     </div>
   );
-};
-
-export default ManageCard;
+}

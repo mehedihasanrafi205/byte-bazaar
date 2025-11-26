@@ -23,10 +23,11 @@ export default function ProductCard({ product }) {
     router.push(`/products/${_id}`);
   };
 
+  // Fallback image
   const mainImage =
-    images.length > 0
+    images && images.length > 0 && images[0].startsWith("http")
       ? images[0]
-      : "https://via.placeholder.com/400x300?text=No+Image";
+      : "/logo.png"; 
 
   return (
     <div
@@ -34,12 +35,13 @@ export default function ProductCard({ product }) {
       className="card bg-base-100 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col h-full group"
     >
       {/* Image */}
-      <div className="relative w-full h-52 md:h-60 bg-linear-to-br from-gray-100 to-gray-200 overflow-hidden">
+      <div className="relative w-full h-52 md:h-60 bg-gray-100 overflow-hidden">
         <Image
           src={mainImage}
           alt={title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          style={{ objectFit: "cover" }}
+          unoptimized
         />
 
         {/* Category Badge */}

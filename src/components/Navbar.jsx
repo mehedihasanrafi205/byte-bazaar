@@ -1,8 +1,14 @@
+"use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
+  const { data: session, status } = useSession();
+  console.log(session)
+
   const links = (
     <>
       <li>
@@ -14,48 +20,44 @@ const Navbar = () => {
           <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
         </Link>
       </li>
-      <li>
-        <Link
-          href="/products"
-          className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
-        >
-          Products
-          <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/add-product"
-          className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
-        >
-          Add Product
-          <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/manage-products"
-          className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
-        >
-          Manage Products
-          <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-        </Link>
-      </li>
+      {session?.user && (
+        <>
+          {" "}
+          <li>
+            <Link
+              href="/products"
+              className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
+            >
+              Products
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/add-product"
+              className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
+            >
+              Add Product
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/manage-products"
+              className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
+            >
+              Manage Products
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+            </Link>
+          </li>
+        </>
+      )}
       <li>
         <Link
           href="/about"
           className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
         >
           About
-          <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/contact"
-          className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
-        >
-          Contact
           <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
         </Link>
       </li>
@@ -103,12 +105,57 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
-          <Link
-            href="/login"
-            className="btn btn-primary hover:scale-105 transition-transform"
-          >
-            Get Started
-          </Link>
+          {session ? (
+            <div className="dropdown dropdown-end">
+              <label
+                tabIndex={0}
+                className="btn btn-ghost btn-circle avatar ring-2 ring-primary ring-offset-2 hover:ring-offset-base-200 transition-all duration-300"
+              >
+                <div className="w-10 h-10 rounded-full overflow-hidden">
+                  {session.user?.image ? (
+                    <Image
+                      src={session.user.image}
+                      alt="Profile"
+                      width={40}
+                      height={40}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <FaUserCircle className="w-10 h-10 text-gray-400" />
+                  )}
+                </div>
+              </label>
+
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow-lg bg-gray-900/90 rounded-xl w-56 mt-2 border border-gray-700"
+              >
+                <li className="px-2 py-2 hover:bg-primary hover:text-white rounded-lg transition-colors flex items-center gap-2">
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-2 w-full"
+                  >
+                    <FaUserCircle className="text-gray-300" /> Profile
+                  </Link>
+                </li>
+                <li className="px-2 py-2 hover:bg-red-500 hover:text-white rounded-lg transition-colors flex items-center gap-2">
+                  <button
+                    onClick={() => signOut()}
+                    className="flex items-center gap-2 w-full"
+                  >
+                    <FaUserCircle className="text-gray-300" /> Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="btn btn-primary hover:scale-105 transition-transform"
+            >
+              Get Started
+            </Link>
+          )}
         </div>
       </div>
     </nav>

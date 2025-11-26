@@ -6,16 +6,17 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
+import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage() {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  
 
-  // Redirect if already logged in
   useEffect(() => {
     if (session) {
-      router.push("/"); // redirect to homepage
+      router.push("/"); 
     }
   }, [session, router]);
 
@@ -122,6 +123,7 @@ export default function LoginPage() {
           className="btn bg-white text-black border-[#e5e5e5] w-full mt-2"
           disabled={loading}
         >
+          <FcGoogle />
           Login with Google
         </button>
 
