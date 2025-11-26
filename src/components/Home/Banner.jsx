@@ -28,7 +28,7 @@ export default function Banner() {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative w-full aspect-2/1"> 
+            <div className="relative w-full aspect-2/1 md:aspect-21/10">
               <Image
                 src={slide.src}
                 alt={slide.alt}

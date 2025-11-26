@@ -7,7 +7,7 @@ import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
-  console.log(session)
+  console.log(session);
 
   const links = (
     <>
@@ -20,7 +20,7 @@ const Navbar = () => {
           <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
         </Link>
       </li>
-      {session?.user && (
+      {session && (
         <>
           {" "}
           <li>
@@ -128,24 +128,37 @@ const Navbar = () => {
 
               <ul
                 tabIndex={0}
-                className="dropdown-content menu p-2 shadow-lg bg-gray-900/90 rounded-xl w-56 mt-2 border border-gray-700"
+                className="dropdown-content menu p-4 shadow-lg bg-gray-900/90 rounded-xl  mt-2 border border-gray-700 flex flex-col gap-2"
               >
-                <li className="px-2 py-2 hover:bg-primary hover:text-white rounded-lg transition-colors flex items-center gap-2">
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-2 w-full"
-                  >
-                    <FaUserCircle className="text-gray-300" /> Profile
-                  </Link>
-                </li>
-                <li className="px-2 py-2 hover:bg-red-500 hover:text-white rounded-lg transition-colors flex items-center gap-2">
-                  <button
-                    onClick={() => signOut()}
-                    className="flex items-center gap-2 w-full"
-                  >
-                    <FaUserCircle className="text-gray-300" /> Logout
-                  </button>
-                </li>
+                {/* User Info */}
+                <div className="px-4 py-4 border-b border-gray-200 dark:border-gray-700 flex flex-col gap-1">
+                  <span className="font-semibold text-gray-800 dark:text-white truncate">
+                    {session.user?.name || "User"}
+                  </span>
+                  <span className="text-gray-500 dark:text-gray-300 text-sm truncate">
+                    {session.user?.email || "No email"}
+                  </span>
+                </div>
+
+                {/* Menu Items */}
+                <ul className="flex flex-col">
+                  <li>
+                    <Link
+                      href="/profile"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-primary hover:text-white transition-colors"
+                    >
+                      <FaUserCircle /> Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      onClick={() => signOut()}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-red-500 hover:text-white w-full text-left transition-colors"
+                    >
+                      <FaUserCircle /> Logout
+                    </button>
+                  </li>
+                </ul>
               </ul>
             </div>
           ) : (

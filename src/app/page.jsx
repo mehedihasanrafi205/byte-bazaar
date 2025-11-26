@@ -7,7 +7,7 @@ import Newsletter from "@/components/Home/Newsletter";
 
 export default function Home() {
   return (
-    <div className="min-h-screen ">
+    <div className=" ">
       <Banner />
       <div className="px-6 xl:px-0">
         <NewArrivals />

@@ -18,7 +18,7 @@ export default function ManageCard({ product, handleDelete }) {
   const imageUrl =
     images.length > 0 && images[0]?.startsWith("http")
       ? images[0]
-      : "/logo.png"; // fallback
+      : "/logo.png"; 
 
   const handleViewDetails = () => {
     router.push(`/products/${_id}`);
