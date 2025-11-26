@@ -2,7 +2,9 @@ import ProductCard from "@/components/ProductCard";
 import React from "react";
 
 const Products = async () => {
-  const res = await fetch("http://localhost:4000/products")
+  const res = await fetch(
+    "https://byte-bazaar-server-drab.vercel.app/products"
+  );
   const products = await res.json();
 
   return (
