@@ -6,8 +6,8 @@ import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
-  const { data: session, status } = useSession();
-  console.log(session);
+  const { data: session } = useSession();
+  // console.log(session);
 
   const links = (
     <>
@@ -20,18 +20,18 @@ const Navbar = () => {
           <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
         </Link>
       </li>
+      <li>
+        <Link
+          href="/products"
+          className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
+        >
+          Products
+          <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+        </Link>
+      </li>
       {session && (
         <>
           {" "}
-          <li>
-            <Link
-              href="/products"
-              className="relative group px-2 py-1 rounded-md transition-all duration-300 hover:text-primary"
-            >
-              Products
-              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-            </Link>
-          </li>
           <li>
             <Link
               href="/add-product"
@@ -127,11 +127,11 @@ const Navbar = () => {
               </label>
 
               <ul
-                tabIndex={0}
-                className="dropdown-content menu p-4 shadow-lg bg-gray-900/90 rounded-xl  mt-2 border border-gray-700 flex flex-col gap-2"
+                tabIndex="-1"
+                className="dropdown-content z-1 menu p-4 shadow-lg bg-gray-900/90 rounded-xl  mt-2 border border-gray-700 flex flex-col gap-2"
               >
                 {/* User Info */}
-                <div className="px-4 py-4 border-b border-gray-200 dark:border-gray-700 flex flex-col gap-1">
+                <div className="px-4 py-4 border-b border-gray-200 flex flex-col gap-1">
                   <span className="font-semibold text-gray-800 dark:text-white truncate">
                     {session.user?.name || "User"}
                   </span>

@@ -4,9 +4,11 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useRouter } from "next/navigation";
 
 export default function AddProductPage() {
-  const { data: session } = useSession(); // Get session
+  const { data: session } = useSession();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
     shortDesc: "",
@@ -60,7 +62,7 @@ export default function AddProductPage() {
       return;
     }
 
-    const productData = { ...formData, email: session.user.email }; // Add user email
+    const productData = { ...formData, email: session.user.email };
 
     try {
       const res = await fetch(
@@ -98,6 +100,7 @@ export default function AddProductPage() {
             Warranty: "",
           },
         });
+        router.push("/manage-products");
       } else {
         Swal.fire({
           icon: "error",

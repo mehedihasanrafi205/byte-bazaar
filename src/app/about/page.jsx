@@ -46,9 +46,9 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <div className="mt-16">
       {/* Hero Header */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20 px-6">
+      <section className="relative overflow-hidden bg-linear-to-r from-blue-600 to-purple-700 text-white py-20 px-6">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative max-w-6xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">
@@ -132,7 +132,7 @@ export default function AboutPage() {
                   key={index}
                   className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-center"
                 >
-                  <div className="p-4 bg-gradient-to-br from-blue-50 to-green-50 rounded-xl mx-auto mb-4 w-fit group-hover:scale-110 transition-transform">
+                  <div className="p-4 bg-linear-to-br from-blue-50 to-green-50 rounded-xl mx-auto mb-4 w-fit group-hover:scale-110 transition-transform">
                     <IconComponent className="w-8 h-8 text-blue-600 mx-auto" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">{value.title}</h3>
@@ -148,7 +148,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Meet Our Dedicated Team</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Behind Byte Bazaars success is a diverse, collaborative team of experts who pour their hearts into creating an exceptional experience. Each member brings unique skills and a shared enthusiasm for technology, ensuring we're always one step ahead in serving you.
+              Behind Byte Bazaars success is a diverse, collaborative team of experts who pour their hearts into creating an exceptional experience. Each member brings unique skills and a shared enthusiasm for technology, ensuring were always one step ahead in serving you.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -158,10 +158,10 @@ export default function AboutPage() {
                 className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
               >
                 <div className="relative mb-4">
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto flex items-center justify-center text-white font-bold text-lg mb-2">
+                  <div className="w-24 h-24 bg-linear-to-br from-blue-500 to-purple-600 rounded-full mx-auto flex items-center justify-center text-white font-bold text-lg mb-2">
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </div>
-                  <div className="absolute -bottom-1 -right-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
+                  <div className="absolute -bottom-1 -right-2 bg-linear-to-r from-blue-500 to-purple-600 text-white p-2 rounded-full w-10 h-10 flex items-center justify-center">
                     <FiUsers className="w-4 h-4" />
                   </div>
                 </div>
@@ -175,7 +175,7 @@ export default function AboutPage() {
 
         {/* Call to Action */}
         <div className="text-center">
-          <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <div className="inline-block bg-linear-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
             <a
               href=""
               className="flex items-center justify-center gap-2 font-semibold"

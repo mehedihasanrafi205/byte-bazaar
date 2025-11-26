@@ -12,6 +12,7 @@ const nextConfig = {
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       { protocol: "https", hostname: "img.freepik.com", pathname: "/**" },
       { protocol: "https", hostname: "via.placeholder.com", pathname: "/**" },
+      { protocol: "https", hostname: "gadgetnmusic.com", pathname: "/**" },
     ],
   },
 };

@@ -43,11 +43,11 @@ export default function RegisterPage() {
     } else {
       Swal.fire({
         title: "Success!",
-        text: "Logged in successfully.",
+        text: "Were working on email/password Registration. In the meantime, you can sign in using Google.",
         icon: "success",
         confirmButtonText: "OK",
       }).then(() => {
-        router.push("/");
+        // router.push("/");
       });
     }
   };

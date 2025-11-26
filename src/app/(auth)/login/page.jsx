@@ -45,11 +45,11 @@ export default function LoginPage() {
     } else {
       Swal.fire({
         title: "Success!",
-        text: "Logged in successfully.",
+        text: "Were working on email/password login. In the meantime, you can sign in using Google.",
         icon: "success",
         confirmButtonText: "OK",
       }).then(() => {
-        router.push("/");
+        // router.push("/");
       });
     }
   };

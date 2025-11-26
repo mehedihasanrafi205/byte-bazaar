@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ByteBazaar 🚀
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat&logo=next.js)](https://nextjs.org/)  
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.3-blue?style=flat&logo=tailwind-css)](https://tailwindcss.com/)  
+[![MongoDB](https://img.shields.io/badge/MongoDB-4.4-green?style=flat&logo=mongodb)](https://mongodb.com/)
 
-First, run the development server:
+**Live Demo:** [https://byte-bazaar-phi.vercel.app/](https://byte-bazaar-phi.vercel.app/)  
+**GitHub Repo:** [https://github.com/mehedihasanrafi205/byte-bazaar](https://github.com/mehedihasanrafi205/byte-bazaar)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📖 About
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+ByteBazaar is a responsive tech product marketplace built with Next.js (App Router). Users browse/search products, view details, and (post-Google login) add/manage listings. Focus: Clean UI, auth via NextAuth.js, Express.js + MongoDB backend.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Tech Stack:** Next.js, Tailwind CSS, NextAuth.js (Google), Express.js, MongoDB, Swiper.js, SweetAlert2.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Public
+- **Landing (/):** Hero, banner, latest products, brands carousel, categories, newsletter, footer.
+- **Products (/products):** Search/filter, responsive grid cards (image, title, desc, price, details).
+- **Details (/products/[id]):** Banner, full desc, meta (price/date/priority), back btn.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Protected
+- **Add (/add-product):** Form (title, descs, price/date/priority, image URL), validation, toast.
+- **Manage (/manage-products):** Table/grid of products; view/delete actions.
 
-## Deploy on Vercel
+### Auth
+- Google OAuth; navbar dropdown post-login.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🗺️ Routes
+
+| Route              | Access    | Description                  |
+|--------------------|-----------|------------------------------|
+| `/`                | Public    | Landing Page                 |
+| `/products`        | Public    | Product List                 |
+| `/products/[id]`   | Public    | Product Details              |
+| `/add-product`     | Protected | Add Product Form             |
+| `/manage-products` | Protected | Manage Products Dashboard    |
+| `/login`           | Public    | Google Login                 |
+
+---
+
+## 🚀 Setup
+
+### Prerequisites
+- Node.js 18+
+- MongoDB Atlas account
+- Google OAuth creds
+
+### Local Run
+1. Clone: `git clone https://github.com/mehedihasanrafi205/byte-bazaar.git && cd byte-bazaar`
+2. Install: `npm install` (frontend); `cd backend && npm install` (if separate)
+3. Env (.env.local / .env):
+   ```
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=your-secret  # openssl rand -base64 32
+   GOOGLE_CLIENT_ID=your-id
+   GOOGLE_CLIENT_SECRET=your-secret
+   MONGODB_URI=your-mongo-uri
+   BACKEND_URL=http://localhost:5000
+   ```
+4. Backend: `cd backend && npm run dev` (port 5000)
+5. Frontend: `npm run dev` (port 3000)
+
+### Deploy
+- Frontend: Vercel (connect repo, add envs)
+- Backend: Vercel (Node service, set envs)
+
+---
+
+## 🎨 Design
+- Responsive (mobile-first)
+- Colors: Navy primary, slate text, emerald CTAs
+- Interactions: Hovers, animations, loading states
+
+
+
+**Built by Mehedi Hasan Rafi** 🌟
