@@ -14,6 +14,7 @@ const nextConfig = {
       { protocol: "https", hostname: "via.placeholder.com", pathname: "/**" },
       { protocol: "https", hostname: "gadgetnmusic.com", pathname: "/**" },
       { protocol: "https", hostname: "i.ibb.co.com", pathname: "/**" },
+      { protocol: "https", hostname: "i.pravatar.cc", pathname: "/**" },
     ],
   },
 };

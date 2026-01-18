@@ -1,7 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/ProductCard";
-import ProtectedRoute from "@/components/ProtectedRoute";
+// import ProtectedRoute from "@/components/ProtectedRoute";
 import React, { useEffect, useState } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 
@@ -12,7 +12,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    fetch("https://byte-bazaar-server-drab.vercel.app/products")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));
@@ -43,7 +43,7 @@ const Products = () => {
   };
 
   return (
-    <ProtectedRoute>
+    // <ProtectedRoute>
       <div className="container mx-auto px-6 xl:px-0 mt-30 mb-15">
         {/* Search & Filter */}
         <div className="flex flex-col md:flex-row gap-4 mb-6 items-center justify-between ">
@@ -107,7 +107,7 @@ const Products = () => {
           )}
         </div>
       </div>
-    </ProtectedRoute>
+    // </ProtectedRoute>
   );
 };
 

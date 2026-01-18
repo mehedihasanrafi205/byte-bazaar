@@ -126,9 +126,9 @@ const Navbar = () => {
                 </div>
               </label>
 
-              <ul
+              <div
                 tabIndex="-1"
-                className="dropdown-content z-1 menu p-4 shadow-lg bg-gray-900/90 rounded-xl  mt-2 border border-gray-700 flex flex-col gap-2"
+                className="dropdown-content z-1 menu p-4 shadow-lg bg-gray-900/90 rounded-xl mt-2 border border-gray-700 flex flex-col gap-2"
               >
                 {/* User Info */}
                 <div className="px-4 py-4 border-b border-gray-200 flex flex-col gap-1">
@@ -159,7 +159,7 @@ const Navbar = () => {
                     </button>
                   </li>
                 </ul>
-              </ul>
+              </div>
             </div>
           ) : (
             <Link

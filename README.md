@@ -1,84 +1,91 @@
-# ByteBazaar 🚀
+# Byte Bazaar
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat&logo=next.js)](https://nextjs.org/)  
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.3-blue?style=flat&logo=tailwind-css)](https://tailwindcss.com/)  
-[![MongoDB](https://img.shields.io/badge/MongoDB-4.4-green?style=flat&logo=mongodb)](https://mongodb.com/)
+Byte Bazaar is a modern e-commerce application built with **Next.js 15 (App Router)** and **Express.js**. It features a dynamic product catalog, user authentication, and product management capabilities.
 
-**Live Demo:** [https://byte-bazaar-phi.vercel.app/](https://byte-bazaar-phi.vercel.app/)  
-**GitHub Repo:** [https://github.com/mehedihasanrafi205/byte-bazaar](https://github.com/mehedihasanrafi205/byte-bazaar)
+## 🚀 Technlogies Used
 
----
+-   **Frontend**: Next.js 15 (App Router), Tailwind CSS
+-   **Backend**: Express.js, MongoDB
+-   **Authentication**: NextAuth.js (Google & Credentials)
+-   **Styling**: Tailwind CSS, DaisyUI
 
-## 📖 About
+## 📦 Features
 
-ByteBazaar is a responsive tech product marketplace built with Next.js (App Router). Users browse/search products, view details, and (post-Google login) add/manage listings. Focus: Clean UI, auth via NextAuth.js, Express.js + MongoDB backend.
+### ✅ Implemented Features
 
-**Tech Stack:** Next.js, Tailwind CSS, NextAuth.js (Google), Express.js, MongoDB, Swiper.js, SweetAlert2.
+1.  **Landing Page**:
+    *   Responsive design with 7+ sections (Banner, Brands, New Arrivals, Featured Categories, Testimonials, FAQ, Newsletter).
+    *   Publicly accessible.
+2.  **Authentication**:
+    *   Secure login using NextAuth.js.
+    *   Supports **Google Login** and **Mock Login** (Email/Password).
+    *   User sessions persist via cookies.
+3.  **Item List Page**:
+    *   Publicly accessible at `/products`.
+    *   Fetches real-time data from the Express backend.
+    *   Search and Filter functionality (by category and name).
+4.  **Item Details Page**:
+    *   Publicly accessible.
+    *   Shows detailed product information, specifications, and images.
+5.  **Add Product (Protected)**:
+    *   Only accessible to authenticated users.
+    *   Secure form to add new products to the database.
+    *   Toast notifications on success.
 
----
-
-## ✨ Features
-
-### Public
-- **Landing (/):** Hero, banner, latest products, brands carousel, categories, newsletter, footer.
-- **Products (/products):** Search/filter, responsive grid cards (image, title, desc, price, details).
-- **Details (/products/[id]):** Banner, full desc, meta (price/date/priority), back btn.
-
-### Protected
-- **Add (/add-product):** Form (title, descs, price/date/priority, image URL), validation, toast.
-- **Manage (/manage-products):** Table/grid of products; view/delete actions.
-
-### Auth
-- Google OAuth; navbar dropdown post-login.
-
----
-
-## 🗺️ Routes
-
-| Route              | Access    | Description                  |
-|--------------------|-----------|------------------------------|
-| `/`                | Public    | Landing Page                 |
-| `/products`        | Public    | Product List                 |
-| `/products/[id]`   | Public    | Product Details              |
-| `/add-product`     | Protected | Add Product Form             |
-| `/manage-products` | Protected | Manage Products Dashboard    |
-| `/login`           | Public    | Google Login                 |
-
----
-
-## 🚀 Setup
+## 🛠️ Setup & Installation
 
 ### Prerequisites
-- Node.js 18+
-- MongoDB Atlas account
-- Google OAuth creds
+- Node.js (v18+)
+- MongoDB connection string (optional, if running local backend with own DB)
 
-### Local Run
-1. Clone: `git clone https://github.com/mehedihasanrafi205/byte-bazaar.git && cd byte-bazaar`
-2. Install: `npm install` (frontend); `cd backend && npm install` (if separate)
-3. Env (.env.local / .env):
-   ```
-   NEXTAUTH_URL=http://localhost:3000
-   NEXTAUTH_SECRET=your-secret  # openssl rand -base64 32
-   GOOGLE_CLIENT_ID=your-id
-   GOOGLE_CLIENT_SECRET=your-secret
-   MONGODB_URI=your-mongo-uri
-   BACKEND_URL=http://localhost:5000
-   ```
-4. Backend: `cd backend && npm run dev` (port 5000)
-5. Frontend: `npm run dev` (port 3000)
+### 1. Backend Setup (`byte-bazaar-server`)
+```bash
+cd byte-bazaar-server
+npm install
+# Create .env file with:
+# URI=your_mongodb_connection_string
+# PORT=4000
+npm start
+# Server runs on http://localhost:4000
+```
 
-### Deploy
-- Frontend: Vercel (connect repo, add envs)
-- Backend: Vercel (Node service, set envs)
+### 2. Frontend Setup (`byte-bazaar`)
+```bash
+cd byte-bazaar
+npm install
+# Create .env.local file (see below)
+npm run dev
+# App runs on http://localhost:3000
+```
 
----
+### Environment Variables (`.env.local`)
+Create a `.env.local` file in the root of the frontend project:
 
-## 🎨 Design
-- Responsive (mobile-first)
-- Colors: Navy primary, slate text, emerald CTAs
-- Interactions: Hovers, animations, loading states
+```env
+NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_super_secret_key
+# Optional: Google OAuth
+GOOGLE_CLIENT_ID=your_client_id
+GOOGLE_CLIENT_SECRET=your_client_secret
+```
 
+## 📍 Route Summary
 
+| Route | Access | Description |
+| :--- | :--- | :--- |
+| `/` | Public | Landing page with 7 sections. |
+| `/products` | Public | List of all available products with search/filter. |
+| `/products/:id` | Public | Detailed view of a specific product. |
+| `/login` | Public | User login page. |
+| `/add-product` | Protected | Form to add a new product (requires login). |
+| `/manage-products`| Protected | Dashboard to view user-added products. |
 
-**Built by Mehedi Hasan Rafi** 🌟
+## 🔐 Authentication Flow
+
+1.  **Login**: Users can log in via `/login`.
+    *   **Mock Login**: Use `test@example.com` / `password`.
+    *   **Google Login**: Requires valid OAuth keys in `.env.local`.
+2.  **Session**: A JWT session is created and stored in a secure cookie.
+3.  **Protection**: Middleware or Client-side checks (`useSession`, `ProtectedRoute`) prevent access to `/add-product` and `/manage-products` for unauthenticated users.
+4.  **Redirect**: Unauthenticated users trying to access protected routes are redirected to `/login`.
