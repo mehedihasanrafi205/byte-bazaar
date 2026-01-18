@@ -3,7 +3,7 @@ import ProductCard from "../ProductCard";
 
 const NewArrivals = async () => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/latest-products`
+    `${process.env.NEXT_PUBLIC_API_URL || "https://byte-bazaar-server-drab.vercel.app"}/latest-products`
   );
   const products = await res.json();
 
