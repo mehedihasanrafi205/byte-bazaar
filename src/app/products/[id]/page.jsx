@@ -9,7 +9,7 @@ export default async function ProductDetailPage({ params }) {
     `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`
   );
   const product = await res.json();
-  console.log(product);
+
   return (
     // <ProtectedRoute>
       <div className="container mx-auto  px-6 xl:px-0 mt-30">
