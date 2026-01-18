@@ -146,6 +146,7 @@ export default function ManageProducts() {
           </div>
         </div>
 
+
         {/* Product List */}
         {loading ? (
           <p className="text-center text-gray-500">Loading products...</p>
