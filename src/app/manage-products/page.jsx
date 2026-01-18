@@ -56,7 +56,7 @@ export default function ManageProducts() {
     if (confirm.isConfirmed) {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,
+          `${process.env.NEXT_PUBLIC_API_URL || "https://byte-bazaar-server-drab.vercel.app"}/products/${id}`,
           { method: "DELETE" }
         );
         const data = await res.json();

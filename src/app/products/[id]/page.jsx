@@ -6,7 +6,7 @@ export default async function ProductDetailPage({ params }) {
   const { id } = await params;
   // console.log("Product ID:", id);
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`
+    `${process.env.NEXT_PUBLIC_API_URL || "https://byte-bazaar-server-drab.vercel.app"}/products/${id}`
   );
   const product = await res.json();
 
