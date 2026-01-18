@@ -12,7 +12,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || "https://byte-bazaar-server-drab.vercel.app"}/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));

@@ -22,7 +22,7 @@ export default function ManageProducts() {
       setLoading(true);
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/addedProducts?email=${session.user.email}`
+          `${process.env.NEXT_PUBLIC_API_URL || "https://byte-bazaar-server-drab.vercel.app"}/addedProducts?email=${session.user.email}`
         );
         const data = await res.json();
 

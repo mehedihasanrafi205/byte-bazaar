@@ -66,7 +66,7 @@ export default function AddProductPage() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/products`,
+        `${process.env.NEXT_PUBLIC_API_URL || "https://byte-bazaar-server-drab.vercel.app"}/products`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
